@@ -32,7 +32,7 @@ umd_fees_pct <- umd_fees |> mutate(pct_change = (`Fall 2026`- `Fall 2021`)/`Fall
 ### Task 4: Describe the results
 
 Write a few sentences about what you found in those percentages. What's the story here? What questions do you have?
-
+Since 2021, there's been a 58 percent change in shuttle bus service. I'd like to know exactly what changes has been made, the costs, and asking students on campus if they feel the changes has made the difference or is it the same? Student activities jumps out to me as well as since 2021 it's gone up by 28 percent. I'd like to know about the decision process in investing a little more that area. Were students surveyed about wanting an increase in more activities, was the student body council involved in this process? As a non-traditional student, I remember trying to explore activties for non-traditional students and there really wasn't any. I'd like to know more about the data collection process used to invest in activties. Athetlics jumps out to me as well as ther's been virtually no change. I'd like to know why that is as the amount is oddly at the same amount since 2021.
 
 
 
