@@ -46,7 +46,7 @@ crimes_with_rates <- crimes |> mutate(violent_rate = violent_crime_total/populat
 
 ### Task 6: Describe our results
 
-Write a few sentences about what you found in the data. What years had the highest crime rates? What years had the lowest crime rates? Does the pattern match your expectations? What might explain some of the results you found?
+Write a few sentences about what you found in the data. What years had the highest crime rates? What years had the lowest crime rates? Does the pattern match your expectations? What might explain some of the results you found? 1990-95 has the highest crime rates in Maryland and it matches up to my expectations as around that time the drug pandemic dominated headlines. I'm also remembering the 1991 Mt. Pleasant riots around this period as well. Violent crime and property damage during this period is almost going hand-in-hand.
 
 
 
