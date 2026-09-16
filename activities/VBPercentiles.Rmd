@@ -37,7 +37,7 @@ team_aces |> mutate(percentile = ntile(total_aces, 100))
 
 ### Task 5: Describe the percentiles
 
-Write a couple of sentences that puts Maryland into context with the other teams in the dataset. You can do some Internet research to help with this.
+Write a couple of sentences that puts Maryland into context with the other teams in the dataset. You can do some Internet research to help with this. Maryland is in the 95th percentile with 223 aces among the top 17 schools in womens volleyball. Yet when I look at their record online they had an overall record of 14-17. Conference Record: 5-15 (.250) Home Record: 8-7 Away Record: 4-9. Utep meanwhile had an overall Record of 27–6, Home Record: 15–3Away Record: 8–2Neutral Record: 4–1Postseason: Earned the program's first-ever at-large bid to the NCAA Tournament.Milestones: Set a school-record 13-match win streak and became the first Division I team in the country to reach 20 wins during the season. Seems Maryland was in a tough division that year.
 
 
 
