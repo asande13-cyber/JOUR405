@@ -71,3 +71,31 @@ Nut graf: According to 2019 and 2020 Maryland crime data, cities like Morningsid
 ### Task 9: Save Your Work and Put it on GitHub
 
 Save this notebook, then commit it to your local repository. Push the changes to your GitHub repository and submit the URL for this file in ELMS.
+
+
+### Task 10: 
+
+```{r}
+md_cities_percentiles <- md_cities_rates |>
+  mutate(
+    violent_percentile_2020 = ntile(violent_rate_2020, 100)
+  )
+```
+How many cities are above the 90th percentile? I manually counted 10.
+#### Interquartile Range
+
+```{r}
+md_cities_percentiles |>
+  summarize(
+    violent_rate_2020_iqr = IQR(violent_rate_2020, na.rm = TRUE)
+  )
+```
+The interquartile range for the 2020 violent-crime rate was 419.8895 incidents per 100,000 residents.
+
+### Story Idea Revisited 
+
+Do the results change your best story idea from the previous assignment? Why or why not?
+
+ANSWER HERE: 
+These results broaden my original story idea from Prince George’s County to Maryland municipalities. Ten cities were above the 90th percentile for violent crime in 2020, while the interquartile range of 419.8895 showed that rates varied widely across the state. Seat Pleasant was the only Prince George’s County municipality in that top group, showing that the county did not have one consistent crime pattern.
+
