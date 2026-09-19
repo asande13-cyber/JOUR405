@@ -9,6 +9,8 @@ In this assignment, we will be working with a dataset of total crimes reported b
 You will need to load the tidyverse library and the janitor library
 
 ```{r}
+library(tidyverse)
+library(janitor)
 ```
 
 Then you'll load the data from the web. The URL for the data is: https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/md_cities_crime_2019_2020.csv. You will create a dataframe called `md_cities` that contains the data from this URL.
@@ -16,19 +18,27 @@ Then you'll load the data from the web. The URL for the data is: https://raw.git
 ### Task 2: Load the Data
 
 ```{r}
+md_cities <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/md_cities_crime_2019_2020.csv")
 ```
 ### Task 3: Calculating Rates
 
 Calculate violent and property crime rates for each city for both years using `mutate()`. You'll create four new columns: `violent_rate_2019`, `property_rate_2019`, `violent_rate_2020`, and `property_rate_2020`. You'll need to figure out the proper unit rate, given that there are varying populations. There's no perfect choice; choose the one that works best for you. Save the results to a new dataframe called `md_cities_rates`.
 
 ```{r}
+md_cities_rates <- md_cities |>
+  mutate(
+    violent_rate_2019 = (violent2019 / pop2019) * 100000,
+    property_rate_2019 = (property2019 / pop2019) * 100000,
+    violent_rate_2020 = (violent2020 / pop2020) * 100000,
+    property_rate_2020 = (property2020 / pop2020) * 100000
+  )
 ```
 
 ### Task 4: Describe the Rates
 
 Examine the new dataframe, `md_cities_rates`, by clicking on it in the Environment tab in RStudio and sorting by the rate columns. Write a couple of sentences about the results, comparing and contrasting the cities with the highest rates (both violent and property) in 2019 and 2020. Do you see any patterns? What does this tell you about crime in Maryland cities? What's the story here?
 
-ANSWER HERE
+ANSWER HERE: After sorting each rate column, Baltimore had the highest violent-crime rate in 2019 at about 1,834 incidents per 100,000 residents, while Ocean City had the highest in 2020 at about 2,397. Ocean City also had the highest property-crime rate in both years. Beyond those cities, I did not see one consistent pattern because some rates increased while others declined or stayed nearly the same. Eagle Harbor and North Brentwood recorded zero violent and property crimes in both years, while University Park and Upper Marlboro also recorded zero violent crimes in at least one year, which makes me question whether those were actual zeros or possible reporting issues. The story is that crime varied greatly depending on the city, and the pandemic and differences in reporting may have influenced the numbers.
 
 
 ### Task 5: Calculate Percentage Change
@@ -36,19 +46,27 @@ ANSWER HERE
 Let's add two percentage change columns to your dataframe: one for violent crime rates and one for property crime rates. You'll calculate the percentage change between 2019 and 2020 for each city. Save the results to a new dataframe called `md_cities_change`.
 
 ```{r}
+md_cities_change <- md_cities_rates |>
+  mutate(
+    violent_change = ((violent_rate_2020 - violent_rate_2019) / violent_rate_2019) * 100,
+    property_change = ((property_rate_2020 - property_rate_2019) / property_rate_2019) * 100
+  )
 ```
 
 ### Task 7: Describe Percentage Changes
 
 Look at the `md_cities_change` dataframe by clicking on it in the Environment tab in RStudio. Write a couple of sentences describing the percentage change results. What's more interesting here, the patterns or the outliers? What's the story in the data?
 
-ANSWER HERE
+ANSWER HERE: The percentage changes did not follow one consistent pattern across the cities I examined. Baltimore City’s violent-crime rate decreased by about 12.88% and its property-crime rate fell by about 25.93%, while Chesapeake Beach experienced a 22.58% decrease in property crime but a 16.12% increase in violent crime. Frederick County showed several substantial property-crime decreases, while Prince George’s County had violent-crime decreases in places such as Morningside, Brentwood and New Carrollton. The outliers are more interesting because results such as `NaN`, `Inf` and `-100%` raise questions about cities that started or ended with zero incidents and whether reporting differences affected the data.
+
 
 ### Task 8: Tell the Best Story
 
 Write up a lede and nutgraf of a story with the _best_ story idea you've found in this assignment. The lede should be a single sentence that summarizes the most important information in the data. The nutgraf should be a paragraph that provides more context and explains why the data is important.
 
-ANSWER HERE
+ANSWER HERE: Lede: Prince George’s County crime moved in opposite directions during the first year of COVID-19, as violent-crime rates fell sharply in several municipalities while property crime rates rose in others.
+
+Nut graf: According to 2019 and 2020 Maryland crime data, cities like Morningside’s violent crime rate dropped by about 55%, while Brentwood declined by 33% and New Carrollton by 12%. Meanwhile, property crime rates increased in Seat Pleasant and Forest Heights. The data cannot establish whether the pandemic caused these changes, but the timing makes it an important question. The split matters because a countywide trend can hide different public safety problems residents face from one municipality to another, potentially affecting where local leaders focus crime prevention efforts, police attention, and community resources.
 
 ### Task 9: Save Your Work and Put it on GitHub
 
