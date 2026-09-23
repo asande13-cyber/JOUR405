@@ -34,8 +34,8 @@ car_thefts |>
   ggplot() + 
   geom_histogram(aes(x = count), binwidth = 2) +
   geom_vline(aes(xintercept = mean(count)), color = "red", linetype = "dashed", size = 1) +
-  geom_vline(aes(xintercept = mean(count) - sd(count)), color = "blue", linetype = "dashed", size = 1) +
-  geom_vline(aes(xintercept = mean(count) + sd(count)), color = "blue", linetype = "dashed", size = 1)
+  geom_vline(aes(xintercept = mean(count) - sd(count)), color = "blue", linetype = "dashed", linewidth = 1) +
+  geom_vline(aes(xintercept = mean(count) + sd(count)), color = "blue", linetype = "dashed", linewidth = 1)
 ```
 
 
@@ -46,7 +46,7 @@ car_thefts |>
 
 ### Task 6: Describe your results
 
-Is the distribution normal or skewed in one direction? Write a sentence in which you describe the range of the data covered by one standard deviation from the mean on both sides - how much of the data falls in that range?
+Is the distribution normal or skewed in one direction? Write a sentence in which you describe the range of the data covered by one standard deviation from the mean on both sides - how much of the data falls in that range? It's not skewed in one direction as the range of data is showing an average of 8-17 cars being stolen. I wouldn't say 12.5 cars are stolen to my readers as that would confuse them into asking how can you steal a car and a half. Saying that the daily average of cars being stolen between 8-17 is cleaner. I That lets my readers know that one a slow day maybe 8 cars are stlown or it could dip from 2-5 cars, while on a worst day it could be 17 cars stolen, and on rare occasions 18-20. I'm sticking to the most simplistic data to rely.
 
 
 
