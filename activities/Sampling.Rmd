@@ -6,22 +6,48 @@ Follow along with the demo to learn how to sample data from a population using R
 
 ### Task 1: Load the tidyverse
 
+```{r}
+library(tidyverse)
+```
 
 ### Task 2: Load 1,000 rows of data with the ages of people from 18-80
 
+```{r}
+set.seed(1234)
+
+population <- tibble(
+  age = sample(18:80, 1000, replace = TRUE)
+)
+```
 
 ### Task 3: Sample 100 rows of data from the dataset
 
+```{r}
+sample25 <- population |>
+  sample_n(25)
+```
 
 ### Task 4: Calculate the mean age and standard deviation of the sample
-
+```{r}
+sample25 |>
+  summarize(
+    mean = mean(age),
+    sd_age = sd(age)
+  )
+```
 
 ### Task 5: Calculate the mean age and standard deviation of the population
-
+```{r}
+population |>
+  summarize(
+    mean = mean(age),
+    sd_age = sd(age)
+  )
+```
 
 ### Task 6: Compare the sample and population statistics
 
-Compare the means and standard deviations. Are they similar? Go back and re-run the sampling and statistics calculations with a smaller sample size. How do the results change?
+Compare the means and standard deviations. Are they similar? Go back and re-run the sampling and statistics calculations with a smaller sample size. How do the results change? The sample of 100 was very similar to the full population. Its mean age was 49.82 compared with 49.061 for the population, while the standard deviations were 17.88 and 17.77. When I reduced the sample to 25 people, the mean increased to 51.04 and the standard deviation changed to 17.54. The smaller sample was still fairly close, but its mean moved farther away from the population mean, showing how results can vary more when the sample size is smaller.
 
 
 
