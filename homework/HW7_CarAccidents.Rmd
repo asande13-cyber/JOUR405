@@ -32,7 +32,7 @@ library(lubridate)  # For working with dates
 Load the accident data from our CSV file at https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/daily_accidents.csv into a dataframe called `accidents`:
 
 ```{r load-data}
-
+accidents <- read_csv ("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/daily_accidents.csv")
 ```
 
 ## Data Exploration
@@ -68,7 +68,8 @@ ggplot(accidents, aes(x = date, y = total)) +
 ### Task 2 (3 points)
 Looking at the time series visualization above, identify at least two noticeable patterns or anomalies. What questions would you want to investigate further based on this initial view of the data? How might these visual patterns translate into potential story angles?
 
-ANSWER HERE
+ANSWER HERE: One pattern that stands out is the sharp decline in accidents around early 2020, followed by a sharp & quick rebound later in the year. Another pattern appears between late 2021 and early 2022, when the overall trend declined before rising again around mid-2022. There may be an individual day near the end of 2021 when the number of accidents dropped close to zero, which could be an unusual event or a data issue.
+I would investigate early-2020 decline and if it is tied to COVID-19 restrictions. I'd be curious to know if it resulted in fewer drivers on the road unless that person was an essential worker. I'd also look into what caused the changes between 2021-2022, and whether the near-zero day represents an actual decline in accidents or missing information. Possible story angles include how the pandemic changed commuting, driving, and accident patterns in Prince George’s County, and what caused accidents to rise again afterward.
 
 The daily data is quite noisy, so let's also look at weekly patterns:
 
@@ -107,7 +108,9 @@ ggplot(accidents, aes(x = day_of_week, y = total)) +
 ### Task 3 (2 points)
 Based on the day-of-week analysis, which day(s) have the highest and lowest average accidents? Why might these patterns exist?
 
-ANSWER HERE
+ANSWER HERE: Friday may have the highest average because most people get paid on Fridays, run errands, travel, or do weekend activities. 
+
+The other days have about the same average because there may be less traffic and/or fewer people traveling during peak hours. The data at this point needs further investigation.
 
 ## Calculating Z-Scores
 
@@ -119,9 +122,9 @@ Now, using the accidents dataframe, add three columns using `mutate()`: mean_acc
 # Calculate z-scores for total accidents
 accidents <- accidents |>
   mutate(
-    mean_accidents = REPLACE_ME,
-    sd_accidents = REPLACE_ME,
-    z_score = (REPLACE_ME - REPLACE_ME) / REPLACE_ME
+    mean_accidents = mean (total),
+    sd_accidents = sd(total),
+    z_score = (total - mean_accidents) / sd_accidents
   )
 
 # Display the data with z-scores
@@ -156,7 +159,13 @@ unusual_days |>
 ### Task 5 (3 points)
 Choose one of the top 10 unusual days and research what might have happened on that date. Look for weather events, holidays, major incidents, or other factors that could explain the unusual number of accidents. Briefly describe your findings and how you would incorporate this context into a story.
 
-ANSWER HERE
+ANSWER HERE: I chose Friday, October 29, 2021. On this day, 58 accidents were recorded. This was the highest number in my top 10, with a z-score of 4.77. This combination represents a rare, unusual day that is five standard deviations above the average. 
+Further research shows a major storm affected Maryland that day. The National Weather Service recorded roughly 1 to 1.3 inches of rain across multiple Prince George's County locations by midafternoon. Areas included Capitol Heights, Bowie, Largo, and Andrews Air Force Base. 
+Warnings included strong winds, heavy rain, and flooding. State Highway Administration reported several road closures because of fallen trees and high waters.
+
+Prince George'sCounty schools dismissed students early because of the weather. 
+
+This weather may have contributed to the unusually high number of accidents. However, more investigating is needed. At this point I would need to look at the times the crashes occred and their locations with the weather conditions before coming to a strong, plausible conclusion.
 
 Let's visualize these unusual days:
 
@@ -186,9 +195,9 @@ Let's calculate z-scores that account for day of week patterns based on the same
 accidents <- accidents |>
   group_by(day_of_week) |>
   mutate(
-    dow_mean = REPLACE_ME,
-    dow_sd = REPLACE_ME,
-    dow_z_score = (REPLACE_ME - REPLACE_ME) / REPLACE_ME
+    dow_mean = mean(total),
+    dow_sd = sd(total),
+    dow_z_score = (total - dow_mean) / dow_sd
   ) |>
   ungroup()
 
@@ -207,7 +216,7 @@ unusual_dow |>
 ### Task 7 (3 points)
 Compare the days that have extreme z-scores overall versus those with extreme day-of-week z-scores. How do these lists differ? What journalistic insights can you draw from comparing these two different approaches to measuring "unusual" days?
 
-ANSWER HERE
+ANSWER HERE: Four dates remained in both top 10 lists, while six changed after each date was compared with others from the same day of the week. My Oct. 29th selection, remained the most unusual high-accident day, and the total number of unusual days increased. This shows that a busy Friday may be unusual overall but less surprising compared with other Fridays. Comparing z-scores provides better context and helps avoid labeling a day unusual without accounting for normal weekday patterns.
 
 Let's see how many unusual days we have for each day of the week:
 
@@ -286,7 +295,7 @@ unusual_monthly |>
 ### Task 8 (2 points)
 Based on the monthly pattern analysis, which months have the highest and lowest average accidents? Develop a hypothesis about why these seasonal patterns exist.
 
-ANSWER HERE
+ANSWER HERE: October had the highest average, with about 27.5 accidents per day, while January had the lowest at about 22.2. One possible explanation is that October has more drivers attending football games, cookouts, festivals and other fall events, along with people beginning their holiday shopping. January is colder, and many people may be spending less after the Thanksgiving, Christmas and New Year’s holidays while mainly traveling between work, school and home. The data does not prove these reasons, but they could help explain the seasonal pattern.
 
 ## Identifying Extreme Outliers
 
@@ -311,9 +320,13 @@ if(nrow(extreme_outliers) > 0) {
 ### Task 9 (2 points)
 For the extreme outliers identified (z-scores beyond ±3), what do they have in common?
 
-ANSWER HERE
+ANSWER HERE: All 10 days with extremely high accident totals occurred on either a Friday or Saturday. Meanwhile, the two extremely low days occurred on a Sunday and Monday. This suggests the most extreme increases in accidents tend to happen near the beginning of the weekend, when more drivers may be traveling, attending events, or going out.
 
 ## Your Best Story Pitch
 
 ### Task 10 (5 points)
-Based on all the analyses performed, craft your best story pitch, including a headline and lede. Be sure to include what kinds of sources/people you'd talk to for the story.
+Based on all the analyses performed, craft your best story pitch, including a headline and lede. Be sure to include what kinds of sources/people you'd talk to for the story. **Headline: Prince George’s County’s largest accident spikes occurred on Fridays and Saturdays**
+
+**Lede:** The 10 days with Prince George’s County’s most unusually high accident totals all fell on Fridays or Saturdays, according to an analysis of county accident data.
+
+**Story pitch:** The story would examine why the county’s largest accident spikes occurred at the beginning of the weekend. The most unusual date was Friday, Oct. 29, 2021, when the county recorded 58 accidents as heavy rain, strong winds and flooding affected Maryland. I would investigate whether weather, sporting events, festivals, heavier traffic or impaired driving played a role on the other nine dates. I would interview county police and traffic officials, Maryland transportation and weather officials, a traffic-safety expert and drivers who regularly travel through the county.
