@@ -42,6 +42,7 @@ sleep_stats
 **Answer this question:** Based on these numbers alone, what would you tell the health reporter? Why might it be risky to report the average as the definitive answer for all students?
 
 ANSWER HERE
+I would tell the reporter that majority of students sampled are averaging 7.7 hours of sleep or more While some are averaging less than six hours of sleep. 
 
 ### Task 3: Calculate the standard error
 
@@ -59,7 +60,7 @@ sleep_stats
 **Answer this question:** The standard error is much smaller than the standard deviation. Why? What does each one measure?
 
 ANSWER HERE
-
+It's based on the sample we have whereas if we increased the sample size then the standard deviation would change. Standard error is based on how much probably our margin of potential error would be if we kept repeatint the same sample size number (n). Standard deviation tells us about the sample we have.
 ### Task 4: Calculate a 95% confidence interval
 
 Now we'll build our confidence interval. For a 95% CI with a small sample, we use the t-distribution. The `qt(0.975, df = n - 1)` function gives us the critical value — the number of standard errors we go above and below the mean. We multiply critical value by the standard error to get the margin of error, then add/subtract from the mean.
@@ -80,6 +81,7 @@ sleep_stats |>
 **Answer this question:** Write one sentence explaining what this confidence interval means in plain English that a reader would understand.
 
 ANSWER HERE
+Confidence interveral means 19/20 times (or 95% of the time) the average amount of students are sleeping an average of 7.27 to 8.18 hours of sleep. The smaller the margin error, the higher the mean of hours.
 
 ### Task 5: Visualize the distribution with the confidence interval
 
@@ -114,6 +116,8 @@ ggplot(sleep_data, aes(x = hours)) +
 
 ANSWER HERE
 
+The confidence interval is about where the mean is as most people are sleeping between 7.3 to 8.1 hours
+
 ### Task 6: The CDC question — is 7 hours within the interval?
 
 The CDC recommends at least 7 hours. Based on the confidence interval, can we say students are getting enough sleep? Let's check.
@@ -135,6 +139,7 @@ sleep_stats |>
   c) "Survey: Students Getting Recommended Amount of Sleep"
 
 ANSWER HERE
+C: Students getting recommended amount of sleep
 
 ### Task 7: What about a bigger sample?
 
