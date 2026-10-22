@@ -56,6 +56,8 @@ weekly_wmata |>
   theme_minimal()
 ```
 
-**Answer this question:** Describe the trend you see. Is ridership going up, down, or staying flat? What are the big dips, and what might explain them? What would you want to know before writing a story about Metro weekly ridership trends?
+**Answer this question:** Describe the trend you see. Is ridership going up, down, or staying flat? What are the big dips, and what might explain them? What would you want to know before writing a story about Metro weekly ridership trends? 
 
 ANSWER HERE
+
+Combined bus and rail ridership is gradually increasing. Ridership rose sharply in March, April, May, and June 2025, then declined around November and December of that year before resuming a steady increase from February 2026 onward. Gas prices at the pump may explain this, since most WMATA riders drive personal vehicles and park them at Metro stations to ride the Metro. Some drivers may have abandoned their cars altogether in favor of riding the Metro to and from work. I want to know whether President Trump and his administration's strikes on Iran played a role, since that started in February 2026. I remember in 2025 gas went from $3.10 to $3.30. At the beginning of 2026, it was as low as $2.85 before the Iran attacks occurred. I would want to confirm this information to see if there is a connection before writing my story.
