@@ -173,15 +173,15 @@ Apply this framework to the community policing data:
 
 **Question 1:** Write 1-2 sentences answering whether the result is statistically significant and how you know.
 
-ANSWER HERE: Did not watch videos. Wasn't aware of videos.
+ANSWER HERE: The result is not significant as the sample size was rather small and had no major impact. I think the severity of the crime matters and look at the costs of operating this program. I'd also like to compare it to other cities to see if the chief and his department are in the top ranks or at the bottom ranks. 
 
-**Question 2:** Write 1-2 sentences answering whether the result is meaningfully significant. Consider: the program cost the city $2 million to implement. Is a 25-second improvement in response times worth that investment? What context would you need to answer that question?
+**Question 2:** Write 1-2 sentences answering whether the result is meaningfully significant. Consider: the program cost the city $2 million to implement. Is a 25-second improvement in response times worth that investment? What context would you need to answer that question? 
 
-ANSWER HERE: Did not watch videos. Wasn't aware of videos.
+ANSWER HERE: To answer this question I would need to follow this program for a series of three years to see if it's really worth the investment. I would also want to see the impact these costs have on taxpapers and how much they will potentially be paying for this program. I also want to know where this $2 million is coming from exactly and talk to city council members to get their thoughts on the program and whether they are for or against it. 
 
 **Question 3:** Write a headline and a 2-3 sentence lede for a story about these findings. Your text should accurately reflect both the statistical significance and the effect size — don't let the police chief's framing drive the story if the data tells a more nuanced one.
 
-ANSWER HERE: Did bnot watch videos. Wasn't aware of videos.
+ANSWER HERE: Police Chief Claims New Emergency Program Response Time Sees Improvement. Data however suggests there really isn't much of a significant change and whether the program is having an immediate impact on residents and neighbords. 
 
 
 When you are finished, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
