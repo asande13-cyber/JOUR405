@@ -105,8 +105,8 @@ This is where we formally test the officials' claim. Fill in the REPLACE_ME valu
 
 **Hypotheses:**
 
-- **H₀ (Null):** REPLACE_ME
-- **H₁ (Alternative):** REPLACE_ME
+- **H₀ (Null):** Average home price not increased by 285000
+- **H₁ (Alternative):** Average home price increased by 285000
 
 ```{r}
 # Set the significance level
