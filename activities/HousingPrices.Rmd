@@ -49,8 +49,8 @@ Replace the REPLACE_ME values to calculate the mean, standard deviation and coun
 ```{r}
 new_stats <- home_data |> 
   summarise(
-    mean = mean(REPLACE_ME),
-    sd = sd(REPLACE_ME),
+    mean = mean(285000),
+    sd = sd(32000),
     n = n()
   )
 
@@ -59,7 +59,7 @@ new_stats
 
 **Answer this question:** How does the new average compare to the prior average of $285,000? How much higher is it in dollar terms? Does that seem like a big difference to you? What else would you want to know?
 
-ANSWER HERE
+ANSWER HERE: The new average home price is $304,500, which is $19,500 higher than the previous average of $285,000. I think that's a pretty noticeable increase, but I wouldn't automatically assume the transit line is responsible. I'd want to know if home prices were also increasing in surrounding neighborhoods and whether these 14 sales are enough to give us an accurate picture of what's happening.
 
 ### Task 3: Visualize the distribution (1 point)
 
@@ -97,7 +97,7 @@ ggplot(home_data, aes(x = sale_price)) +
 
 **Answer this question:** Look at where the old average (red dashed line) falls relative to the new sales. How many of the 14 homes sold for more than the old average? What does the histogram tell you about the spread of the new prices?
 
-ANSWER HERE
+ANSWER HERE: All 14 homes sold for more than the previous average of $285,000. Looking at the histogram, the prices range from $288,000 to $325,000, which is a difference of $37,000. That's a pretty noticeable spread, but what's interesting is that every home sold above the old average, suggesting that home values may be increasing in the neighborhood.
 
 ### Task 4: Set up and perform a hypothesis test (2 points)
 
@@ -110,13 +110,13 @@ This is where we formally test the officials' claim. Fill in the REPLACE_ME valu
 
 ```{r}
 # Set the significance level
-alpha <- REPLACE_ME
+alpha <- 0.05
 
 # Perform a one-sample t-test
 # Since we want to know if home values INCREASED, we use alternative = "greater"
 t_test_result <- t.test(
   home_data$sale_price,
-  mu = REPLACE_ME,
+  mu = 285000,
   alternative = "greater"
 )
 
@@ -125,7 +125,7 @@ t_test_result
 
 **Answer this question:** Look at the p-value. Is it less than our alpha of 0.05? What does this mean for our null hypothesis — can we reject it? What can we now say about the officials' claim?
 
-ANSWER HERE
+ANSWER HERE: The p-value is 0.0000181, which is well below our alpha of 0.05. This means we have enough statistical evidence to reject the null hypothesis. The results support the officials' claim that home values have increased since the transit line opened. However, I wouldn't automatically conclude that the transit line itself caused the increase without investigating other possible factors.
 
 ### Task 5: Interpret the results with a confidence interval (2 points)
 
@@ -155,7 +155,7 @@ story_stats
 
 **Answer this question:** The 95% confidence interval tells us the range where the true average home price likely falls. Does that range include the old average of $285,000? What does that tell you?
 
-ANSWER HERE
+ANSWER HERE: No, the previous average of $285,000 does not fall within the 95% confidence interval of approximately $297,624 to $311,376. This gives us further statistical evidence that home prices have increased since the transit line opened. However, it still doesn't prove that the transit line itself caused the increase.
 
 ### Task 6: Calculate the effect size (3 points)
 
@@ -166,7 +166,7 @@ We've established that the increase is statistically significant — it's real, 
 Replace the REPLACE_ME values.
 
 ```{r}
-effect_size <- (mean(new_prices) - REPLACE_ME) / REPLACE_ME
+effect_size <- (mean(new_prices) - prior_mean) / prior_sd
 
 effect_size_label <- case_when(
   abs(effect_size) < 0.2 ~ "Negligible",
@@ -185,7 +185,7 @@ tibble(
 
 **Answer this question:** The effect size is "medium." In dollar terms, the average increase is about $19,500. But remember that the standard deviation of home prices in this neighborhood was $32,000 *before* the transit line — meaning prices already varied by tens of thousands of dollars from sale to sale. Given that context, does a $19,500 increase seem large or modest? How does the effect size help you think about this differently than just looking at the dollar amount?
 
-ANSWER HERE
+ANSWER HERE: I think $19,500 is a noticeable increase, but when you consider that home prices were already varying by around $32,000, I wouldn't necessarily call it a huge jump. The effect size of 0.609 is considered medium, which puts things into better perspective. Instead of just looking at the dollar amount and assuming it's a major increase, the effect size helps me understand how significant that change really is compared to how much home prices were already fluctuating.
 
 ### Task 7: What's the story? (6 points)
 
@@ -193,11 +193,11 @@ You now have all the statistical evidence. But writing the story requires more t
 
 **Part A:** The local officials are going to claim the transit line increased home values. Based on your analysis, is that claim supported? Write 2-3 sentences for the top of your story that accurately reflect both the statistical significance AND the effect size. Don't just echo the officials' talking points — interrogate them.
 
-ANSWER HERE
+ANSWER HERE: Home prices in a neighborhood with a new light rail line have increased from an average of $285,000 to $304,500, a jump of $19,500, or 6.8%, based on 14 recent home sales. While the increase is statistically significant, the effect size of 0.609 is considered medium, suggesting a noticeable but not overwhelming change. Although the findings support the officials' claims that home prices have increased, there's still not enough evidence to say the transit line itself is responsible.
 
 **Part B:** A $19,500 increase is real and statistically significant, but what *else* could explain rising home prices in this neighborhood? List at least two alternative explanations that a good reporter would want to investigate before attributing the increase entirely to the transit line.
 
-ANSWER HERE
+ANSWER HERE: I think there are several other factors that could explain why home prices have increased. For one, inflation could be driving up housing prices in general. I'd also want to look at mortgage rates and whether changes in those rates affected buyer demand. Another possibility is that some homes had renovations or upgrades that increased their value. As a journalist, I'd want to compare prices in surrounding neighborhoods before assuming the transit line was responsible for the increase.
 
 
 When you are finished, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
