@@ -231,8 +231,8 @@ kable(comparison, digits = 1, caption = "Difference Between Weighted and Unweigh
 
 **Answer These Questions:**
 
-1. Which voter category shows the biggest difference between weighted and unweighted results?
+1. Which voter category shows the biggest difference between weighted and unweighted results? The rarely/never voters had the biggest change. Before weighting, 54.9% said they planned to vote, but afterward that dropped to 51.4%, a difference of 3.6 percentage points. What's interesting is that the other two groups barely changed at all. 
 
-2. How might these differences affect reporting on likely voter turnout?
+2. How might these differences affect reporting on likely voter turnout? As a journalist, I think this is something we really have to pay attention to. If we just went with the original numbers, we could end up giving readers the wrong impression about how many people actually plan to vote. A difference of 3.6 percentage points might not sound like much, but in a close election, that could be pretty important. It also makes me wonder how often we see polling numbers reported without knowing whether they've been properly weighted. After watching Election Day coverage last night with Steve Kornacki, I think it's critical to know this information.
 
-3. Why do you think these differences exist? What does this tell us about who might be over or under-represented in the sample?
+3. Why do you think these differences exist? What does this tell us about who might be over or under-represented in the sample? I think some groups were probably represented more than others in the original survey, which is why weighting is important. What really stands out to me is how much the numbers changed for people who rarely or never vote compared to everyone else. I'd want to know more about who was surveyed and which groups needed the biggest adjustments. Otherwise, how can we be sure we're getting an accurate picture of what voters are thinking?
