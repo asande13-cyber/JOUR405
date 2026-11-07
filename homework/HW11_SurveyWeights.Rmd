@@ -1,6 +1,6 @@
 ---
 title: "HW11: Education Level and Survey Weighting"
-author: "Your Name Here"
+author: Tony Lee Sanders
 ---
 
 ```{r setup, include=FALSE}
@@ -46,19 +46,21 @@ ggplot(nonvoters_data, aes(x = weight)) +
 
 **Question 1:** Most weights cluster near 1.0, but some are much higher or lower. What does a weight of 0.2 tell you about that respondent's group in the sample? What about a weight of 3.5? Why might a pollster assign such extreme weights?
 
-ANSWER HERE
+ANSWER HERE: What stands out to me is that most of the survey weights are around 1.0, but some are much higher or lower. From what I'm understanding, a weight of 0.2 means that person's response counts less because their group may already be overrepresented in the survey. On the other hand, a weight of 3.5 means their response counts more because their group may be underrepresented. I think pollsters make these adjustments to balance things out so we're getting a better picture of what the overall population thinks, rather than having certain groups influence the results more than they should.
 
 ## Task 2: Education Distribution in the Sample (3 points)
 
 ```{r education-distribution}
 nonvoters_data |>
-  count(REPLACE_ME) |>
+  count(educ) |>
   mutate(percentage = round(n / sum(n) * 100, 1))
 ```
 
 **Question 2:** College graduates are overrepresented in most surveys. Does that appear to be true here? Why might college graduates be more likely to respond to a survey than people with less education?
 
-ANSWER HERE
+ANSWER HERE: Looking at the numbers, I initially thought the results were fairly balanced. College graduates made up 39.9% of respondents, compared with 30.8% who had a high school education or less and 29.3% with some college. However, college graduates still represent the largest group. I think we'd need to compare those numbers with the overall U.S. adult population to know whether they're actually overrepresented.
+
+As for why college graduates might be more likely to participate, I think some may feel more comfortable answering surveys or recognize them as an opportunity to have their voices heard. There could also be differences in how people are contacted or how much time they have to participate. That doesn't necessarily mean people with less education aren't interested in these issues, but it does make me wonder whether those differences could influence the results.
 
 ## Task 3: Unweighted Voting Intentions by Education (4 points)
 
@@ -87,7 +89,7 @@ unweighted_summary
 
 **Question 3:** Based only on these unweighted numbers, write a one-sentence headline for a story about education and voting intentions.
 
-ANSWER HERE
+ANSWER HERE: Survey Finds 93% of College Graduates Planned to Vote in 2020, Compared With 74% of Those With High School Education or Less
 
 ## Task 4: Weighted Voting Intentions by Education (2 points)
 
@@ -97,7 +99,7 @@ Now apply the weights. Instead of counting respondents, we sum their weights —
 weighted_by_education <- nonvoters_data |>
   filter(!is.na(Q21), Q21 > 0, !is.na(educ)) |>
   group_by(educ, Q21) |>
-  summarize(weighted_count = sum(REPLACE_ME), .groups = "drop_last") |>
+  summarize(weighted_count = sum(weight), .groups = "drop_last") |>
   mutate(weighted_total = sum(weighted_count),
          weighted_percentage = weighted_count / weighted_total * 100) |>
   ungroup()
@@ -125,7 +127,7 @@ viz_data <- bind_rows(
   weighted_by_education |>
     filter(Q21 == 1) |>
     mutate(Type = "Weighted",
-           percentage = REPLACE_ME) |>
+           percentage = weighted_percentage) |>
     select(Type, educ, percentage)
 )
 
@@ -145,7 +147,7 @@ ggplot(viz_data, aes(x = educ, y = percentage, fill = Type)) +
 
 **Question 4:** Which education group shows the biggest shift between weighted and unweighted results? In percentage points, how large is that shift? Does weighting change the story, or does it just change the exact numbers?
 
-ANSWER HERE
+ANSWER HERE: Looking at the chart, I'd say the high school or less group saw the biggest change. Before weighting, 73.5% said they planned to vote, compared with 70.8% after weighting. That's a drop of 2.7 percentage points. To me, weighting changes the exact numbers, but it doesn't really change the overall story. College graduates were still the most likely to say they planned to vote, while people with a high school education or less remained the least likely.
 
 ## Task 6: The UMD Belonging Survey (8 points)
 
@@ -153,4 +155,8 @@ Earlier in class this week, we looked at the 2024 UMD Belonging and Community Su
 
 **Question 5:** Based on what you've learned in this assignment, write 2-3 paragraphs as if you were a reporter evaluating the UMD survey before writing a story based on it. Address: (1) what the lack of weighting means for how you'd use the results, (2) which groups in the UMD survey appeared most underrepresented based on Figures 1 and 2, and (3) what question you would ask the survey's authors before publishing.
 
-ANSWER HERE
+ANSWER HERE: If I were reporting on UMD's 2024 Belonging and Community Survey, my biggest concern would be the lack of weighting, especially with only a 23% response rate. Without those adjustments, I'm not convinced the findings fully represent the campus community. As we've learned in class, weighting can change the percentages, and readers deserve to know about any limitations before drawing conclusions.
+
+Looking at Figures 1 and 2, men made up 50% of UMD's population but only 38% of respondents. Hispanic/Latinx community members represented 9% of the population but only 5% of respondents. Black/African American community members were also underrepresented, at 11% compared with 13%. My concern is whether these differences could leave out important perspectives about belonging at UMD.
+
+Before publishing, I'd ask the researchers why they decided against weighting the results and whether doing so would significantly change their findings. I'd also want to know how they reached students beyond email, particularly commuters and nontraditional students. For me, it's about making sure readers understand what the survey tells us without presenting the results as more representative than they actually are.
