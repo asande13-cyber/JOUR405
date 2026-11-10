@@ -144,7 +144,7 @@ PUT ANSWERS HERE: Car thefts are going down, and the evidence shows this is not 
 
 2. Write a headline and a 2-3 sentence lede for a story about car thefts in Prince George's County. Unlike the response times story from class (where the effect was small and the headline needed to be cautious), this is a case where the data strongly supports a clear conclusion. Your writing should reflect that — but still note the limitations (correlation vs. causation, what else might explain the decline).
 
-PUT ANSWERS HERE: Headline: Monthly Car Thefts Drops Nearly 29% in Prince George’s County
+PUT ANSWERS HERE: Headline: Monthly Car Thefts Drop Nearly 29% in Prince George’s County
 Prince George’s County averaged about 312 car thefts per month in the second half of the period analyzed, down from about 439 during the first half. Statistical testing shows the decline is both significant and large, but the numbers alone do not explain why it happened. Additional reporting would be needed to determine whether enforcement, prevention efforts, reporting changes or other factors played a role.
 
 When you are finished, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.

@@ -1,0 +1,235 @@
+---
+title: "final_project.Rmd"
+output: html_document
+date: "2026-11-09"
+Author: Tony Lee Sanders
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+## Loading AEW Dynamite Television Ratings
+
+```{r}
+library(tidyverse)
+library(jsonlite)
+
+# Read the JSON without letting jsonlite guess the structure
+ratings <- fromJSON("https://trnbckl.net/ratings.json", simplifyVector = FALSE)
+
+# Helper: turn JSON nulls into NA so every record has the same shape
+null_to_na <- function(x) map(x, \(v) if (is.null(v)) NA else v)
+
+# Weekly episode records: show, air date, viewers, P18-49 rating, code, note
+weekly <- ratings$weekly |> 
+  map(null_to_na) |> 
+  map(\(x) tibble(
+    show        = x[[1]],
+    air_date    = x[[2]],
+    viewers     = x[[3]],
+    demo_rating = x[[4]],
+    code        = x[[5]],
+    note        = x[[6]]
+  )) |> 
+  list_rbind() |> 
+  mutate(
+    air_date    = ymd(air_date),
+    viewers     = as.numeric(viewers),
+    demo_rating = as.numeric(demo_rating),
+    year        = year(air_date)
+  )
+
+dynamite <- weekly |> 
+  filter(show == "Dynamite")
+
+# Save a CSV copy so the analysis doesn't depend on the live site
+write_csv(dynamite, "dynamite_weekly.csv")
+
+# Annual averages, if she wants them for checking her own calculations
+annual <- ratings$annual |> 
+  map(null_to_na) |> 
+  map(\(x) tibble(
+    show     = x[[1]],
+    year     = x[[2]],
+    metric   = x[[3]],
+    value    = as.numeric(x[[4]]),
+    episodes = x[[5]],
+    note     = x[[7]]
+  )) |> 
+  list_rbind()
+  
+```
+
+## Exploring the AEW Dynamite Data
+
+```{r}
+dynamite_data <- read_csv("dynamite_weekly.csv")
+
+glimpse(dynamite_data)
+
+dynamite_data |>
+  summarize(
+    episodes = n(),
+    first_date = min(air_date, na.rm = TRUE),
+    last_date = max(air_date, na.rm = TRUE),
+    missing_viewers = sum(is.na(viewers))
+  )
+```
+```{r}
+
+dynamite_data |>
+  group_by(year) |>
+  summarize(
+    episodes = n(),
+    average_viewers = round(mean(viewers), 0),
+    median_viewers = median(viewers)
+  )
+```
+```
+
+## AEW Dynamite Data Exploration
+
+### Data Source and Description
+
+For my final project, I'm examining AEW Dynamite's television viewership from its debut in October 2019 through 2026. Professor Willis provided code to help me load the ratings data into RStudio from https://trnbckl.net/ratings.json.
+
+After filtering the data for Dynamite, I have 367 weekly records covering October 2, 2019, through October 14, 2026. Each record represents one episode. I also saved the data as a CSV file so I can continue working with it in RStudio.
+
+### Important Columns
+
+The columns I'll focus on are air_date, viewers, demo_rating and year. These will help me examine viewership trends over time, compare annual averages and look at changes during CM Punk's time with AEW. The note column may also help explain unusual episodes or ratings.
+
+### Initial Findings
+
+The annual averages show that viewership has changed quite a bit over the years. For example, Dynamite averaged approximately 956,000 viewers in 2022, compared with approximately 587,000 in 2025. However, I want to examine the weekly numbers before drawing conclusions.
+
+### Missing Data and Limitations
+
+None of the 367 records have missing viewer totals, but I still need to confirm whether every episode is included. The 2026 data ends in October, so that year is incomplete. Another limitation is that these are television ratings, not complete audience totals. HBO Max streaming viewership isn't included.
+
+### Questions I Still Have
+
+Professor Willis has already suggested comparing AEW's viewership during CM Punk's tenure, including periods when he was absent. My next challenge is figuring out which statistical tests would best determine whether those differences were significant, rather than just normal week-to-week changes in viewership.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
