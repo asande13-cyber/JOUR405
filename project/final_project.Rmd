@@ -85,7 +85,6 @@ dynamite_data |>
     median_viewers = median(viewers)
   )
 ```
-```
 
 ## AEW Dynamite Data Exploration
 
@@ -111,8 +110,52 @@ None of the 367 records have missing viewer totals, but I still need to confirm 
 
 Professor Willis has already suggested comparing AEW's viewership during CM Punk's tenure, including periods when he was absent. My next challenge is figuring out which statistical tests would best determine whether those differences were significant, rather than just normal week-to-week changes in viewership.
 
+## Professor Willis's Feedback — Final Project Data Exploration
 
+Professor Willis's feedback:
 
+> This is in good shape. A couple of thoughts: your best question I think is this one - "How did AEW Dynamite’s television viewership differ between periods when CM Punk was active, absent, and no longer with AEW?"
+>
+> To do that, you need to define the time frame of CM Punk's availability, and you'll want to plot weekly viewership. For the periods you define you'll want to calculate group means, medians and standard deviations, the basic building blocks of our work.
+>
+> Then we can talk about tests.
+
+## AEW Dynamite Weekly Viewership
+
+```{r}
+ggplot(dynamite_data, aes(x = air_date, y = viewers)) +
+  geom_line() +
+  labs(
+    title = "AEW Dynamite Weekly Television Viewership",
+    x = "Air Date",
+    y = "Television Viewers"
+  )
+```
+
+## CM Punk Timeline for Viewership Comparisons
+
+Before CM Punk:
+October 2, 2019 – August 18, 2021
+
+CM Punk Active:
+August 25, 2021 – June 1, 2022
+August 10, 2022 – August 31, 2022
+June 21, 2023 – August 23, 2023
+
+CM Punk Absent:
+June 8, 2022 – August 3, 2022
+September 7, 2022 – June 14, 2023
+
+Transition Period:
+August 30, 2023 – Review separately before classification.
+
+After CM Punk's Departure:
+September 6, 2023 – October 14, 2026
+
+Note: These periods reflect CM Punk's general availability
+with AEW, not necessarily appearances on Dynamite
+every week.
+========
 
 
 
