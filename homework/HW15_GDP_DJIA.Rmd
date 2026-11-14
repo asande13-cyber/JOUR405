@@ -13,6 +13,7 @@ Your task in this assignment will be to examine the relationship between those t
 ### Task 1: Load the tidyverse
 
 ```{r}
+library(tidyverse)
 ```
 
 ### Task 2: Load the GDP and DJIA data
@@ -20,6 +21,7 @@ Your task in this assignment will be to examine the relationship between those t
 Load the GDP data from https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/gdp_djia.csv
 
 ```{r}
+gdp_djia <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/gdp_djia.csv")
 ```
 
 ### Task 3: Calculate the correlation coefficient
@@ -27,6 +29,7 @@ Load the GDP data from https://raw.githubusercontent.com/dwillis/jour405/refs/he
 Use the `cor()` function to calculate the correlation coefficient between the DJIA and GDP.
 
 ```{r}
+gdp_djia |> summarize(correlation = cor(GDP, DJIA))
 ```
 
 ### Task 4: Create a scatterplot
@@ -34,11 +37,24 @@ Use the `cor()` function to calculate the correlation coefficient between the DJ
 Use the `ggplot()` function to create a scatterplot of the DJIA and GDP. Be sure to label your axes and add a title.
 
 ```{r}
+gdp_djia |>
+  ggplot() +
+  geom_point(aes(x=GDP, y=DJIA)) +
+  geom_smooth(aes(x=GDP, y=DJIA), method="lm") +
+  labs(
+    title="Relationship Between U.S. GDP and Dow Jones Industrial Average (2013–2024)",
+    x="Gross Domestic Product (GDP)",
+    y="Dow Jones Industrial Average (DJIA)"
+  )
 ```
 
 ### Task 5: Describe our results
 
 Write a few sentences about the relationship between the DJIA and GDP. Is there a strong correlation between the two variables? What does the scatterplot show?
+
+Based on the data I'm seeing, there is a very strong positive linear correlation between the Gross Domestic Product (GDP) and the Dow Jones Industrial Average (DJIA), with a correlation coefficient of 0.953. Looking at the scatter plot, the blue line is clearly trending upward in a positive direction. This suggests that as GDP increases, the Dow Jones Industrial Average generally tends to increase as well.
+
+Something else I noticed is that the relationship isn't necessarily perfect. There are instances where the DJIA is higher than what the regression line predicts, while other points fall below that line. However, despite these differences, the overall pattern remains positive, which supports the strong correlation between the two variables. One thing I would also point out is that while the data shows a strong relationship between GDP and the DJIA, it doesn't necessarily mean that one is directly causing the other to increase or decrease.
 
 
 When you are done, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
