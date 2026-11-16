@@ -8,6 +8,71 @@ Author: Tony Lee Sanders
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+## Final Project: Test I Can Run 11.16.26
+
+Research Question and Progress
+
+My main research question is: How did AEW Dynamite's television viewership differ between periods when CM Punk was active, absent and no longer with AEW?
+
+Following Professor Willis's feedback on my initial data exploration, I've continued working with the 367 Dynamite television ratings records covering October 2019 through October 2026.
+
+So far, I've calculated yearly averages and medians, examined the available data and created a line graph showing weekly television viewership. I've also begun identifying the different periods of CM Punk's AEW tenure so I can compare the ratings more closely.
+
+###Mean, Median and Standard Deviation
+
+As Professor Willis previously recommended, one of my main priorities is comparing the mean, median and standard deviation of weekly viewership during Punk's active, absent and post-AEW periods.
+
+I think these measurements will be particularly useful because they can help me understand not only which periods had higher average viewership, but also how consistent the ratings were.
+
+For example, two periods could have similar average audiences but very different fluctuations in weekly viewership. I also want to account for the number of episodes in each group since the periods aren't all the same length.
+
+###Examining Trends and Outliers
+
+I've already created a line graph showing Dynamite's weekly television viewership. My next goal is to use that graph alongside the different CM Punk periods to identify any noticeable changes.
+
+We've previously worked with quartiles, the interquartile range and standard deviations. I think those concepts could help me identify episodes with unusually high or low viewership.
+
+Something else I'm interested in is whether a few particularly successful episodes could influence the averages enough to make one period appear stronger than another.
+
+###Statistical Significance and Confidence Intervals
+
+Another analysis I'd like to explore is whether differences in average viewership between the periods are statistically significant.
+
+We've worked with hypothesis testing, confidence intervals and p-values in previous assignments. I believe those methods could help me determine whether the differences I'm finding are substantial or potentially consistent with ordinary variation.
+
+However, I'm not entirely sure which statistical test would work best for comparing three main groups: active, absent and no longer with AEW.
+
+I'm particularly interested in whether a two-sample t-test could be useful for comparing individual periods or whether a different approach would be better for evaluating all three groups together.
+
+I also wonder whether the fact that these are weekly television ratings, rather than independent random observations, affects which tests would be appropriate.
+
+###Correlation and Linear Regression
+
+After completing Homework 15, I also believe correlation and linear regression could be useful for my project.
+
+In that assignment, I examined the relationship between GDP and the Dow Jones Industrial Average and learned more about interpreting scatter plots, regression lines and correlation coefficients.
+
+For Dynamite, I could potentially use regression to examine whether television viewership generally increased or decreased over time.
+
+I'm also interested in whether there's a strong correlation between total television viewers and the adults 18–49 demographic ratings, since both variables are included in my dataset.
+
+However, I recognize that these analyses might provide supporting information rather than directly answering my main research question.
+
+###Limitations and Additional Questions
+
+One challenge is that CM Punk's presence or absence wasn't the only factor that could influence AEW's television ratings.
+
+For example, Dynamite moved from TNT to TBS in January 2022. Changes in television viewing habits, competing programming and other factors could also influence the numbers.
+
+Another consideration is that Punk's availability with AEW didn't necessarily mean he appeared on Dynamite every week. I want to make sure my comparison periods are clearly defined before making conclusions.
+
+My biggest remaining question is whether comparing the averages alone will give me an accurate picture, especially since the ratings cover several years and may reflect broader changes in television viewership.
+
+I would appreciate Professor Willis's guidance on whether the hypothesis tests we've learned are appropriate for this kind of weekly data or whether regression could help account for some of those broader trends.
+
+Ultimately, my goal is to determine whether measurable differences existed between the periods without automatically assuming CM Punk was responsible for those differences.
+
+
 ## Loading AEW Dynamite Television Ratings
 
 ```{r}
