@@ -32,7 +32,7 @@ schools |> arrange(`FARMS Pct`) |> head(10)
 
 Look at the distribution of FARMS percentages. Do any values look unusual or suspicious? What might it mean if a school has a FARMS percentage of exactly 100? Write two or three sentences describing what you see and whether anything concerns you.
 
-ANSWER HERE
+ANSWER HERE: What really jumps out at me is that eight schools are reporting a FARMS percentage of exactly 100%, while the next-highest school is only around 54%. That's a pretty big difference, especially when the median for all 57 schools is just 30.45%. It makes me wonder whether every student at those eight schools actually qualifies for free or reduced-price meals or if there's something different about how those schools are reporting their numbers, because I'd want to get that cleared up before drawing any conclusions about the relationship between poverty and math scores.
 
 
 ### Task 2: Create a Scatterplot and Describe the Results
@@ -50,7 +50,7 @@ schools |>
 
 Describe what you see. Is there a clear trend? Does the regression line look like it represents the data well, or does it seem to be pulled in an odd direction? Connect what you observed in Task 1 to what you see here.
 
-ANSWER HERE
+ANSWER HERE: Looking at the scatter plot, I'm not seeing a clear relationship between FARMS percentages and math scores because the points are pretty scattered. What's interesting to me is that the red regression line is actually trending slightly upward, which seems to go against what the school board member was claiming. However, going back to what I noticed in Task 1, eight schools are reporting exactly 100% FARMS, and they're all grouped together on the far right of the graph. That makes me wonder whether those numbers are pulling the regression line upward and giving us a misleading picture of what's actually happening. I'd want to take a closer look at those figures before drawing any conclusions.
 
 
 ### Task 3: Run the Regression Model
@@ -68,7 +68,9 @@ The **p-value** tells you whether the relationship is statistically significant.
 
 Report all three values and describe what they tell you. Does this model support the school board member's claim? Is this even a model worth using?
 
-ANSWER HERE
+ANSWER HERE: Looking at the regression results, the first thing that jumps out at me is the p-value of 0.123, which is higher than 0.05. That tells me the relationship between FARMS percentages and math scores isn't statistically significant. The adjusted R-squared is only 0.0254, meaning the model explains just 2.54% of the differences in math scores, which isn't much at all. What's also interesting is the FARMS coefficient of 0.12349, which suggests that for every percentage-point increase in FARMS, the model predicts a slight increase of about 0.12 percentage points in math scores.
+
+To me, these results don't really support the school board member's claim that schools with fewer economically disadvantaged students perform better in math. Going back to what I noticed earlier, I'm still concerned about those eight schools reporting exactly 100% FARMS because they could be influencing the results. Based on what I'm seeing, I wouldn't consider this a reliable model for predicting math performance without taking a closer look at those numbers.
 
 
 ### Task 4: What's Driving the Problem? Filter and Rerun.
@@ -98,7 +100,9 @@ cat("  Adjusted R-squared:", summary(model_filtered)$adj.r.squared, "\n")
 
 How did removing those schools change the model? Did the coefficient change direction? Did the p-value or R-squared improve meaningfully? What does this tell you about the influence of suspicious data values on a regression model?
 
-ANSWER HERE
+ANSWER HERE: After removing the eight schools reporting 100% FARMS, I'm seeing some noticeable changes in the results. For starters, the coefficient increased from 0.1235 to 0.4040, although it remained positive. What really catches my attention is that the p-value dropped from 0.123 to 0.043, meaning the relationship is now statistically significant. The adjusted R-squared also increased from 2.54% to 6.49%, but that's still a pretty small percentage when we're trying to explain the differences in math scores.
+
+What I find interesting is how removing just eight schools changed the results. It makes me question how much those unusual FARMS percentages were influencing the original model. Even with the improvement, I'm still not convinced this is a strong model for predicting math scores. I'd also want to know why those schools were reporting 100% FARMS in the first place, because that doesn't automatically mean their numbers were wrong.
 
 
 ### Task 5: Even the Better Model Has Problems
@@ -132,7 +136,9 @@ head(schools_filtered |> select(1, `FARMS Pct`, `% Met or Exceeded Math Expectat
 
 What are the largest residuals? Given the model's weak R-squared, how much confidence would you have in labeling these schools as over- or under-performers? Why?
 
-ANSWER HERE
+ANSWER HERE: Looking at the results, what really jumps out at me is Gulph Elementary School, which had the largest difference, performing about 36.7 percentage points below what the model predicted. Hereford and Whitemarsh elementary schools also came in below predictions by roughly 32.5 and 30.8 points, while Woodland Elementary was about 28.4 points above its predicted result.
+
+However, what concerns me is that the model's R-squared is only about 8.4%, meaning it explains very little of the differences in math scores between these schools. With that in mind, I wouldn't feel comfortable labeling any of these schools as overperforming or underperforming based on this model alone. I'd want to look at other factors that could influence math performance before making that kind of judgment.
 
 
 ### Task 6: Write the Story Pitch
@@ -141,4 +147,4 @@ You've now run two models, examined the data quality and seen that even a cleane
 
 Write a short story pitch (3-5 sentences) that addresses the following: Does the data support or contradict the claim? What data quality issues did you find? What would you need - different data, a different model, additional reporting - before you could responsibly publish a story about this claim? Who would you call first?
 
-ANSWER HERE
+ANSWER HERE: A school board member in Montgomery County, Pennsylvania, claims that schools with fewer students receiving free or reduced-price meals perform better on standardized math tests, but the data I'm seeing doesn't really support that claim. What concerns me is that eight of the 57 schools reported exactly 100% FARMS, and even after removing those schools, the regression model explained only about 6.5% of the differences in math scores. The relationship actually went slightly in the opposite direction of what the board member was suggesting, which makes me question whether FARMS percentages alone can tell us much about a school's academic performance. Before publishing a story, I'd want to verify those numbers, examine test results from previous years and look at other factors, including school funding and the resources available to students. My first call would be to the Pennsylvania Department of Education to find out how those FARMS percentages were calculated and why eight schools were reporting exactly 100%.
