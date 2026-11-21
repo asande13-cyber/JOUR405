@@ -1,6 +1,6 @@
 ---
 title: "Identifying Schools with Biggest Differences in Math Test Scores, Part 2"
-author: "YOUR NAME"
+author: Tony Lee Sanders
 ---
 
 ```{r}
@@ -30,7 +30,7 @@ schools |> arrange(desc(`FARMS Pct`)) |> head(10)
 
 Are there any data quality issues like the ones you found in the Pennsylvania data? How does the distribution of FARMS percentages compare between the two counties? Note anything that concerns you or gives you confidence in the data.
 
-ANSWER HERE
+ANSWER HERE: Looking at the Montgomery County, Maryland, data, one thing that immediately catches my attention is that none of the 127 schools is reporting exactly 100% FARMS, unlike what we saw in Pennsylvania, where eight schools reported that number. Maryland's percentages range from 4% to 96%, and while the numbers seem more spread out, the average of 39.07% is actually pretty close to Pennsylvania's 38.30%. What gives me a little more confidence in the Maryland data is that I'm not seeing that same unusual grouping at 100%, although I'd still want to make sure the numbers were reported accurately before drawing any conclusions.
 
 
 ### Task 2: Create a Scatterplot and Compare (5 points)
@@ -39,7 +39,7 @@ Replace the REPLACE_ME value with the correct variable name to create a scatterp
 
 ```{r}
 schools |>
-  ggplot(aes(x = `REPLACE_ME`, y = `% Met or Exceeded Math Expectations`)) +
+  ggplot(aes(x = `FARMS Pct`, y = `% Met or Exceeded Math Expectations`)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE, color = "red") +
   labs(x = "FARMS Percentage", y = "% Met or Exceeded Math Expectations",
@@ -48,7 +48,9 @@ schools |>
 
 Describe what you see. Then compare this scatterplot specifically to the Pennsylvania one: what differences do you notice in the direction, strength, and spread of the relationship? The two counties share a name and are both suburban — what might explain why they look so different?
 
-ANSWER HERE
+ANSWER HERE: What immediately catches my attention is how the red regression line is trending downward. Unlike what we saw in Pennsylvania, where the line was slightly upward and the points were all over the place, Maryland shows a much clearer negative relationship between FARMS percentages and math scores. Generally speaking, as the percentage of students receiving free or reduced-price meals increases, the percentage meeting or exceeding math expectations tends to decrease. The points aren't perfectly lined up, but the pattern is definitely stronger than what we saw in Pennsylvania, especially without that unusual group of schools reporting exactly 100% FARMS.
+
+What I find interesting is that both counties share the same name and are considered suburban, yet the results look completely different. That makes me wonder how much differences in student populations, economic conditions, school resources and even how the data is collected might explain what we're seeing. I wouldn't automatically assume the same relationship should exist in both counties just because they're suburban.
 
 
 ### Task 3: Linear Regression Model (5 points)
@@ -56,13 +58,13 @@ ANSWER HERE
 Replace the REPLACE_ME value with the correct variable name to run a linear regression model predicting math scores from FARMS percentage.
 
 ```{r}
-model <- lm(`REPLACE_ME` ~ `FARMS Pct`, data = schools)
+model <- lm(`% Met or Exceeded Math Expectations` ~ `FARMS Pct`, data = schools)
 summary(model)
 ```
 
 Report the three key statistics: the p-value, the Adjusted R-squared, and the coefficient for FARMS Pct. Then interpret them together — not separately. What does the combination of these three numbers tell you about the relationship between poverty and math scores in Montgomery County, Md.? Is this model worth using? How does it compare to the Pennsylvania model?
 
-ANSWER HERE
+ANSWER HERE: Maryland's results tell a much different story than Pennsylvania's. The p-value is well below 0.05, the adjusted R-squared is 67.34%, and the FARMS coefficient of -0.5951 suggests math scores decrease by about 0.60 percentage points for every percentage-point increase in FARMS. Pennsylvania's model only explained about 6.5% of the variation in math scores and showed a weak positive relationship. I'd consider Maryland's model much more useful, although other factors could still influence student performance.
 
 
 ### Task 4: Identifying Schools with the Biggest Residuals (6 points)
@@ -72,9 +74,9 @@ Replace the REPLACE_ME values with the correct variable names to calculate predi
 ```{r}
 schools <- schools |>
   mutate(
-    predicted = predict(REPLACE_ME),
+    predicted = predict(model),
     residual = `% Met or Exceeded Math Expectations` - predicted,
-    abs_residual = abs(REPLACE_ME)
+    abs_residual = abs(residual)
   ) |>
   arrange(desc(abs_residual))
 
@@ -88,7 +90,9 @@ For each of the two schools, answer:
 - Does anything in that profile help explain why the school is over- or under-performing the model?
 - What would your first reporting question be to the principal of that school?
 
-ANSWER HERE
+ANSWER HERE: Fox Chapel Elementary School (20876) performed about 30 percentage points better than the model predicted. According to Census Reporter, the area's median household income is approximately $119,700, with 9.8% of residents living below the poverty line and about 36% being foreign-born. However, those numbers alone don't explain why the school performed so well. My first question to the principal would be what programs or teaching methods might be contributing to the school's success in math.
+
+Meanwhile, Germantown Elementary School (20874) performed about 28 percentage points below expectations. Its ZIP code has a median household income of approximately $115,000, a poverty rate of 8.3%, and about 37% of residents are foreign-born. What's interesting is how similar some of these numbers are, despite the difference in math performance. I'd ask the principal what challenges students are facing in math and what steps the school is taking to improve those results.
 
 
 ### Task 5: Evaluate the Model and Write the Pitch (7 points)
@@ -97,4 +101,4 @@ You've now run this analysis on two counties. Return to the school board member'
 
 Write a short story pitch of 4-6 sentences that addresses all of the following: Does the Maryland data support or contradict the claim? How does it compare to what you found in Pennsylvania? What would you ask the school board member if you called them for comment? And what's the most interesting specific finding from your residuals analysis: which school would you want to visit first, and why?
 
-ANSWER HERE
+ANSWER HERE: Two counties with the same name are telling two very different stories about poverty and math performance. In Montgomery County, Maryland, the data supports the school board member's claim, with the model explaining about 67% of the differences in math scores, while Pennsylvania showed a much weaker relationship trending in the opposite direction. That makes me question why the results are so different, and I'd ask the board member what evidence they used to support their claim and whether they've considered other factors affecting student performance. One school I'd particularly want to visit is Fox Chapel Elementary in Maryland, where students performed about 30 percentage points better than the model predicted. I'd want to speak with the principal and teachers to find out what's contributing to those results and whether other schools could learn something from their approach.
