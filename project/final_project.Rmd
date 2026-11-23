@@ -8,6 +8,73 @@ Author: Tony Lee Sanders
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+## Final Project: Running Statistical Tests 11.23.26
+
+For this week's assignment, I was able to take several of the statistical tests we've learned in class and apply them to my AEW Dynamite project. I wanted to see whether CM Punk's presence or absence made a difference in the show's television viewership and whether the numbers changed after he left AEW.
+
+I started by using the code Professor Willis provided to separate the episodes into different periods. My dataset contains 367 episodes, including 99 before Punk arrived, 55 during his active periods, 50 during his absences, 162 after his departure and one transition episode. Once I had those numbers, I calculated the mean, median and standard deviation for each period.
+
+What stood out was that Dynamite averaged 960,345 viewers during Punk's active periods, compared with 911,640 during his absences. After he left AEW, the average dropped to 667,179 viewers. Before Punk arrived, the average was 828,576 viewers.
+
+The median numbers showed a similar pattern. During Punk's active periods, the median was 954,000 viewers, compared with 902,000 during his absences and 656,500 after his departure.
+
+I also noticed that the standard deviation was higher when Punk was active, at 123,609 viewers, compared with 83,380 during his absences. That told me viewership fluctuated more during his active periods, even though the average audience was higher.
+
+I then tried ANOVA, which Professor Willis recommended because I was comparing three main groups. Using Punk's active, absent and post-departure periods, I had 267 episodes to compare.
+
+The test showed a statistically significant difference among the groups (F = 187.9, p < 0.001). However, that didn't tell me which periods were actually different, so I followed up with Tukey's test.
+
+This is where I found something interesting. Dynamite averaged about 48,705 more viewers when Punk was active compared with when he was absent, but that difference wasn't statistically significant (p = 0.0684).
+
+Meanwhile, viewership after his departure was significantly lower than during both his active and absent periods (p < 0.001 for both comparisons).
+
+I thought that was interesting because it showed that Punk being unavailable didn't necessarily mean Dynamite would experience a statistically significant decline in viewership.
+
+I also ran multiple regression after Professor Willis suggested accounting for time. Before doing that, the difference between Punk's active periods and the period after his departure was approximately 293,166 viewers.
+
+Once I accounted for time, that estimated difference dropped to 101,545 viewers. The difference was still statistically significant, but it wasn't nearly as large as it first appeared.
+
+The regression also estimated a decline of approximately 1,278 viewers per week over time, even after accounting for Punk's status. Meanwhile, the difference between his active and absent periods was about 7,804 viewers after accounting for time, and that wasn't statistically significant (p = 0.6974).
+
+The model explained approximately 67% of the variation in weekly viewership.
+
+That changed how I looked at the numbers. There's clearly a difference between the periods, but I can't automatically say Punk leaving caused Dynamite's ratings to decline. The overall trend in television viewership needs to be considered, too.
+
+Getting all of this to work in RStudio wasn't as straightforward as I expected. One of the first problems happened when I tried running dynamite_data |> count(period). RStudio returned an error saying the period column couldn't be found.
+
+I eventually realized that the code Professor Willis provided needed to run first because that was what created the new column. When I checked my Environment, I initially had 367 observations and seven variables. After running his code successfully, I had eight variables, including period.
+
+At one point, I copied Professor Willis's code directly into the Console and ran it there. That worked, but I was still having trouble getting the code to execute correctly from my notebook.
+
+I went back through the code and found a couple of mistakes. One involved an extra closing parenthesis that needed to be removed. Another involved the triple backticks separating my R code chunks.
+
+I had accidentally inserted spaces before the closing backticks. Once I corrected the formatting and made sure the backticks were at the beginning of the line, RStudio was able to recognize the separate chunks properly.
+
+That helped me understand why code could work when I pasted it directly into the Console but still give me problems in the notebook. The commands themselves weren't necessarily wrong. I had made mistakes with how I entered and organized them.
+
+I also had problems with RStudio showing pulsating green bars and messages saying that code chunks were pending execution. Clicking the green triangles wasn't producing results because other chunks were apparently stuck waiting to finish.
+
+I tried restarting R, but that didn't completely resolve the problem. Closing and reopening the notebook eventually cleared the remaining execution indicators. After reloading my data and running the code in the correct order, I was finally able to get the results I needed.
+
+Another thing I found helpful was going back through earlier JOUR 405 assignments to compare how the code had been entered and organized. I wanted to make sure I wasn't overlooking something simple with the formatting.
+
+I also identified some YouTube tutorials covering R Markdown, ANOVA, Tukey's test and multiple regression. These were useful topics to look into because they directly relate to the commands I was working with and some of the problems I encountered.
+
+The biggest problem came when I tried knitting my notebook. RStudio couldn't connect to the online JSON file containing the ratings data, even though I had already worked with that data successfully.
+
+I learned that knitting runs the notebook in a fresh R session, which meant it was trying to retrieve the data again instead of relying on what was already loaded in my Environment.
+
+I changed the original data-loading chunk to eval=FALSE so the notebook would skip downloading the JSON file. I then used the CSV file I had already saved and made sure tidyverse was loaded before reading it.
+
+I also caught a duplicate read_csv() command and removed it. After making those corrections, the notebook successfully knitted into an HTML document.
+
+What I'm taking away from this assignment is that getting the code to run is only part of the process. I also have to understand what the results mean and recognize when a statistical finding doesn't necessarily prove what caused something to happen.
+
+I also learned that an error in RStudio doesn't automatically mean the analysis is wrong. Sometimes I need to check how the data is loaded, whether the code is formatted properly or whether RStudio is actually executing the commands.
+
+Videos I checked out: https://www.youtube.com/watch?v=mIp3o8AhOHM https://www.youtube.com/watch?v=q1RD5ECsSB0 https://www.youtube.com/watch?v=lpdFr5SZR0Q 
+
+
 ## Final Project: Test I Can Run 11.16.26
 
 Research Question and Progress
@@ -75,7 +142,7 @@ Ultimately, my goal is to determine whether measurable differences existed betwe
 
 ## Loading AEW Dynamite Television Ratings
 
-```{r}
+```{r eval=FALSE}
 library(tidyverse)
 library(jsonlite)
 
@@ -128,6 +195,8 @@ annual <- ratings$annual |>
 ## Exploring the AEW Dynamite Data
 
 ```{r}
+library(tidyverse)
+
 dynamite_data <- read_csv("dynamite_weekly.csv")
 
 glimpse(dynamite_data)
@@ -140,6 +209,7 @@ dynamite_data |>
     missing_viewers = sum(is.na(viewers))
   )
 ```
+
 ```{r}
 
 dynamite_data |>
@@ -222,29 +292,129 @@ with AEW, not necessarily appearances on Dynamite
 every week.
 ========
 
+## 11.23.26 Final Project Updates
 
+## CM Punk Viewership Analysis by Period
 
+```{r}
+library(tidyverse)
+library(lubridate)
 
+# Uses the existing dynamite_data dataframe.
+dynamite_data <- dynamite_data |>
+  mutate(
+    air_date = as.Date(air_date),
+    period = case_when(
+      between(air_date, as.Date("2019-10-02"),
+              as.Date("2021-08-18")) ~ "Before",
 
+      between(air_date, as.Date("2021-08-25"),
+              as.Date("2022-06-01")) |
+      between(air_date, as.Date("2022-08-10"),
+              as.Date("2022-08-31")) |
+      between(air_date, as.Date("2023-06-21"),
+              as.Date("2023-08-23")) ~ "Active",
 
+      between(air_date, as.Date("2022-06-08"),
+              as.Date("2022-08-03")) |
+      between(air_date, as.Date("2022-09-07"),
+              as.Date("2023-06-14")) ~ "Absent",
 
+      air_date == as.Date("2023-08-30") ~ "Transition",
 
+      air_date >= as.Date("2023-09-06") ~ "After",
 
+      TRUE ~ NA_character_ )
+  )
+```
 
+```{r}
+ dynamite_data |>
+  count(period)
+```
 
+```{r}
+dynamite_data |>
+  group_by(period) |>
+  summarize(
+    episodes = n(),
+    mean_viewers = round(mean(viewers, na.rm = TRUE), 0),
+    median_viewers = median(viewers, na.rm = TRUE),
+    sd_viewers = round(sd(viewers, na.rm = TRUE), 0)
+  )
+```
 
+```{r}
+punk_comparison <- dynamite_data |>
+  filter(period %in% c("Active", "Absent", "After"))
 
+punk_anova <- aov(viewers ~ period, data = punk_comparison)
 
+summary(punk_anova)
+```
+###So...what do we see exactly now that we've done the ANOVA test?
 
+An ANOVA comparing Dynamite's average viewership during CM Punk's active, absent and post-departure periods found a statistically significant difference among the three groups (F = 187.9, p < 0.001). However, this test alone does not establish which groups differed or whether Punk's presence caused the changes.
 
+Professor Willis mentioned Tukey's test earlier in the semester. I'm using it here to determine which specific periods had statistically significant differences in average viewership.
 
+```{r}
+TukeyHSD(punk_anova)
+```
 
+###To visualize the period comparisons more clearly, I created a bar chart below showing average weekly Dynamite viewership during the before, active, absent and after periods. This makes it easier to see that average viewership was highest during Punk's active period, remained relatively strong during his absences, and dropped noticeably after his departure.**
 
+```{r}
+plot_data <- dynamite_data |>
+  filter(period %in% c("Before", "Active", "Absent", "After")) |>
+  mutate(period = factor(period, levels = c("Before", "Active", "Absent", "After"))) |>
+  group_by(period) |>
+  summarize(
+    mean_viewers = round(mean(viewers, na.rm = TRUE), 0)
+  )
 
+ggplot(plot_data, aes(x = period, y = mean_viewers)) +
+  geom_col() +
+  geom_text(aes(label = mean_viewers), vjust = -0.3) +
+  labs(
+    title = "Average AEW Dynamite Viewership by CM Punk Period",
+    x = "CM Punk Period",
+    y = "Average Viewers"
+  )
+```
 
+### Making sense of what we're seeing from the ggplot data graph
 
+The graph shows that Dynamite averaged its highest viewership during CM Punk's active periods, with 960,345 viewers per episode. Viewership remained relatively strong during his absences, averaging 911,640 viewers. However, after Punk's departure, the average dropped to 667,179 viewers.
 
+While the decline is noticeable, the graph alone doesn't tell us whether Punk's departure caused it. We still need to account for how Dynamite's ratings changed over time.
 
+### Regression Analysis: Accounting for Changes in Viewership Over Time
+
+Professor Willis recommended using regression to see whether CM Punk's status was associated with Dynamite's viewership after accounting for changes over time. Unlike the ANOVA and Tukey tests, this analysis will include both the CM Punk periods and the passage of time. I want to see whether the differences we found earlier remain after considering the show's overall viewership trend.
+
+```{r}
+punk_comparison <- punk_comparison |>
+  mutate(
+    weeks_since_start = as.numeric(air_date - min(air_date)) / 7,
+    period = factor(period, levels = c("Active", "Absent", "After"))
+  )
+
+punk_regression <- lm(
+  viewers ~ weeks_since_start + period,
+  data = punk_comparison
+)
+
+summary(punk_regression)
+```
+
+### Making Sense of the Regression Results
+
+The regression changed how I looked at Dynamite's viewership numbers. Earlier, we found that Dynamite averaged about 293,166 fewer viewers after CM Punk left AEW compared with his active periods. However, once I accounted for time, that difference dropped to about 101,545 viewers. The difference was still statistically significant (p < 0.001), but it wasn't nearly as large as it first appeared.
+
+Another thing that stood out was the overall decline in ratings. The model estimated that Dynamite lost approximately 1,278 viewers per week, even after accounting for Punk's status. Meanwhile, the difference between his active and absent periods was only about 7,804 viewers after accounting for time, and that wasn't statistically significant (p = 0.6974).
+
+The model explained about 67% of the variation in weekly viewership. What I'm taking away from this is that AEW's ratings were affected by a broader downward trend. While viewership was significantly lower after Punk left, these numbers alone don't prove his departure was responsible. There's more to the story than whether Punk was with the company.
 
 
 
